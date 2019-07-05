@@ -17,13 +17,8 @@ def jsonexample():
     
     #TRANSFORMING DATA
     pd.set_option('display.expand_frame_repr', False)
-    
-    #cards_data = json_normalize(json_dict, record_path='cards', meta=['bet', 'dealerId', 'dealerName', 'gameOutcome', 'gameRoundDuration', 'gameRoundId', 'gameType', 'tableId', 'win'])
+   
     df = json_normalize(json_dict, record_path='playersInGameRound', meta=['bet', 'dealerId', 'dealerName', 'gameOutcome', 'gameRoundDuration', 'gameRoundId', 'gameType', 'tableId', 'win'])
-    
-    #df = cards_data.merge(players_data, on=['bet', 'dealerId', 'dealerName', 'gameOutcome', 'gameRoundDuration', 'gameRoundId', 'gameType', 'tableId', 'win'], how='inner')
-    #if 'cards' not in df.columns.tolist():
-        #df["cards"] = np.nan
     
     #LOADING TO DB
     engine = create_engine('postgresql://postgres:uMdrmuBaFKKh8bvf@35.241.187.56:5432/')
@@ -38,7 +33,3 @@ def jsonexample():
     engine.dispose()
     
     return 'Data was successfully saved to the Database'
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
